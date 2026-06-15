@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilobite Trading Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-neon: #38bdf8;
+            --text-main: #f8fafc;
+            --text-accent: #38bdf8;
+            --text-gold: #fbbf24;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Card Container */
+        .card {
+            background-color: var(--card-bg);
+            border: 4px solid var(--border-neon);
+            border-radius: 20px;
+            width: 450px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5),
+                        inset 0 0 15px rgba(56, 189, 248, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Scanline retro effect */
+        .card::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Header / Name */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px double var(--border-neon);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--text-gold);
+            margin: 0;
+            text-shadow: 2px 2px #000;
+        }
+
+        .hp {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #ef4444;
+        }
+
+        /* Sprite / Image Area */
+        .image-container {
+            background: #020617;
+            border: 3px solid var(--text-gold);
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* CSS Trilobite Pixel-Art Style Graphic */
+        .trilobite-graphic {
+            width: 100px;
+            height: 160px;
+            background: #64748b;
+            border-radius: 50% 50% 40% 40% / 40% 40% 60% 60%;
+            position: relative;
+            box-shadow: 0 0 15px rgba(100, 116, 139, 0.6);
+            border: 2px solid #475569;
+        }
+
+        /* Cephalon (Head) */
+        .trilobite-graphic::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -10px;
+            width: 120px;
+            height: 50px;
+            background: #475569;
+            border-radius: 50% 50% 20% 20%;
+            border: 2px solid #334155;
+        }
+
+        /* Eyes */
+        .eyes {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 2;
+        }
+        .eye {
+            width: 12px;
+            height: 8px;
+            background: var(--text-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--text-gold);
+        }
+
+        /* Segments (Thorax) */
+        .segments {
+            position: absolute;
+            top: 55px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .segment {
+            width: 90px;
+            height: 12px;
+            background: #94a3b8;
+            border-radius: 4px;
+            border-bottom: 2px solid #334155;
+        }
+        .segment:nth-child(2) { width: 85px; background: #8292a6; }
+        .segment:nth-child(3) { width: 75px; background: #718093; }
+        .segment:nth-child(4) { width: 65px; background: #606f81; }
+
+        /* Summary / Type */
+        .type-bar {
+            background: var(--border-neon);
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .summary {
+            font-style: italic;
+            line-height: 1.2;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #475569;
+            padding-bottom: 10px;
+        }
+
+        /* Section Styles */
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            color: var(--text-gold);
+            margin: 10px 0 5px 0;
+            text-transform: uppercase;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: '» ';
+        }
+
+        li {
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .vocab-term {
+            color: var(--text-accent);
+            font-weight: bold;
+        }
+
+        /* Real World Connection Box */
+        .connection-box {
+            margin-top: 15px;
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--text-gold);
+            padding: 8px 12px;
+            font-size: 1.3rem;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">TRILOBITE</h1>
+            <span class="hp">HP 120</span>
+        </div>
+
+        <div class="image-container">
+            <div class="trilobite-graphic">
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="segments">
+                    <div class="segment"></div>
+                    <div class="segment"></div>
+                    <div class="segment"></div>
+                    <div class="segment"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="type-bar">FOSSIL POKÉMON // LENGTH: 2cm - 70cm</div>
+
+        <div class="summary">
+            An ancient, hard-shelled marine arthropod that ruled the ocean floors for nearly 300 million years before vanishing in Earth's greatest mass extinction.
+        </div>
+
+        <div class="section-title">Core Concepts</div>
+        <ul>
+            <li><strong>Evolutionary Icons:</strong> One of the most successful early animal groups, diversifying into over 20,000 distinct species.</li>
+            <li><strong>The Three Lobes:</strong> Their body structure isn't split head-to-tail, but rather vertically into three distinct left-to-right sections.</li>
+            <li><strong>Extinction Markers:</strong> They completely vanished during the Permian-Triassic "Great Dying" event.</li>
+        </ul>
+
+        <div class="section-title">Key Vocab</div>
+        <ul>
+            <li><span class="vocab-term">Cephalon:</span> The distinct, hardened head shield area of the trilobite body structure.</li>
+            <li><span class="vocab-term">Chitin:</span> The tough, glucose-based material that formed their protective exoskeletons.</li>
+            <li><span class="vocab-term">Calcite Eyes:</span> Unique visual organs made of pure crystal lenses—the first complex eyes in nature.</li>
+        </ul>
+
+        <div class="section-title">Cosmic Connection</div>
+        <div class="connection-box">
+            <strong>The Horseshoe Crab Lineage:</strong> Look closely at a modern Horseshoe Crab today! While not direct descendants, they share the exact same armored, bottom-dwelling blueprint and niche that trilobites pioneered half a billion years ago.
+        </div>
+    </div>
+
+</body>
+</html>
